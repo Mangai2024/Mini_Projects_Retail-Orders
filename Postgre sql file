@@ -13,25 +13,25 @@ select t1."category",t2."discount amount" from table_1 t1 join table_2 t2 on t1.
 select "category",avg("sales price") as "average sales price" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."category",t2."sales price" order by "average sales price" desc;
 
 --Query 5: The region with the highest average sale price
-select "region",avg("sales price") as "average sales price" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."region",d."sales price" order by "average sales price" desc;
+select "region",avg("sales price") as "average sales price" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."region",t2."sales price" order by "average sales price" desc;
 
 --Query 6: The total profit per category
-select "category",sum("profit") as "total profit" from table_2 d join table_1 o on o."sub category"=d."sub category" group by o."category",d."profit" order by "total profit" desc;
+select "category",sum("profit") as "total profit" from table_2 t2 join table_1 t1 on t1."sub category"=t2."sub category" group by t1."category",t2."profit" order by "total profit" desc;
 
 --Query 7: Top 3 segments with the highest quantity of orders
-select "category","quantity" as "highest quantity" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."category",d."quantity" order by "highest quantity" desc limit 3;
+select "category","quantity" as "highest quantity" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."category",t2."quantity" order by "highest quantity" desc limit 3;
 
 --Query 8: The average discount percentage given per region
-select "region",avg("discount percent") as "avg discount percent" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."region",d."discount percent" order by "avg discount percent" desc;
+select "region",avg("discount percent") as "avg discount percent" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."region",t2."discount percent" order by "avg discount percent" desc;
 
 --Query 9: The product category with the highest total profit
-select "category",sum("profit") as "highest total profit" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."category",d."profit" order by "highest total profit" desc limit 1;
+select "category",sum("profit") as "highest total profit" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."category",t2."profit" order by "highest total profit" desc limit 1;
 
 --Query 10: The total revenue generated per year
 select "year",sum("sales price" * "quantity") as "total revenue" from table_2 group by "year" order by "year";
 
---Query 11: Total Revenue per Product Category
-select "category",sum("sales price" * "quantity") as "total revenue" from df1_order o join df1_orders d on o."sub category"=d."sub category" group by o."category" order by "category" desc;
+--Query 11: Top 10 Revenue Products by Region
+SELECT  t2.product_id,  t2.sub_category, t1.region, SUM(t2.sale_price * t2.quantity) AS total_revenue FROM table_1 t1 JOIN table_2 t2 ON t1.order_id = t2.order_id GROUP BY t2.product_id, t2.sub_category, t1.region ORDER BY total_revenue DESC LIMIT 10; select "category",sum("sales price" * "quantity") as "total revenue" from df1_order o join df1_orders d on o."sub category"=d."sub category" group by o."category" order by "category" desc;
 
 --Query 12: Top 5 Products by Profit
 select "category",o."sub category",sum("profit") as "products by profit" from df1_order o join df1_orders d on o."sub category"=d."sub category" group by o."category",o."sub category",d."profit" order by "products by profit" desc limit 5;
