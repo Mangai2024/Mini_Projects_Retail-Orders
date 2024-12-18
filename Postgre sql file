@@ -4,13 +4,13 @@ select * from table_2;
 select "product id",sum("list price" * "quantity") as total_revenue from table_2 group by "product id" order by "total_revenue" desc limit 10;
 
 --Query 2: Top 5 cities with the highest profit margins
-select o."city",d."profit" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."city",d."profit" order by "profit" desc limit 5;
+select t1."city",t2."profit" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."city",t2."profit" order by "profit" desc limit 5;
 
 --Query 3: Total discount given for each category
-select o."category",d."discount amount" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."category",d."discount amount" order by "discount amount" desc;
+select t1."category",t2."discount amount" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."category",t2."discount amount" order by "discount amount" desc;
 
 --Query 4: The average sale price per product category
-select "category",avg("sales price") as "average sales price" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."category",d."sales price" order by "average sales price" desc;
+select "category",avg("sales price") as "average sales price" from table_1 t1 join table_2 t2 on t1."sub category"=t2."sub category" group by t1."category",t2."sales price" order by "average sales price" desc;
 
 --Query 5: The region with the highest average sale price
 select "region",avg("sales price") as "average sales price" from table_1 o join table_2 d on o."sub category"=d."sub category" group by o."region",d."sales price" order by "average sales price" desc;
