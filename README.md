@@ -1,3 +1,5 @@
+If you need to check that dashboard on streamlit you can click on the link below:
+https://miniprojects-retail-orders-6g5zvnwu8irspvkec5ueea.streamlit.app/
 Final Retail Orders
 
 This repository contains data and resources related to the Final Retail Orders dataset. The uploaded file final_retail_orders.csv provides valuable information for analyzing and managing retail order details.
