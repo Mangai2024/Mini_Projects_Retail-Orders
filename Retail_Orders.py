@@ -1,15 +1,34 @@
 import streamlit as st
 import pandas as pd
 import pg8000
+import base64
+def set_background_image_local(image_path):
+    with open(image_path, "rb") as file:
+        data = file.read()
+    base64_image = base64.b64encode(data).decode("utf-8")
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/png;base64,{base64_image}");
+            background-size: contain;
+            background-position: fit;
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }}     
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-
+set_background_image_local(r"c:\Users\ADMIN\Downloads\12.png")
 
 # Function to connect to the PostgreSQL database
 def get_db_connection():
     conn = pg8000.connect(
-        host="dbmangai-1.cdig08ycykxi.ap-south-1.rds.amazonaws.com",
+        host="dsmangaidb.c5yks62gq4lf.ap-south-1.rds.amazonaws.com",
         port=5432,
-        database="mangaidatabase",
+        database="postgres",
         user="postgres",
         password="Rootawsroot"
     )
@@ -95,7 +114,7 @@ my_queries = {
 }
 
 # Navigation options
-nav = st.radio("Select Query Section", ["Queries by GUVI", "My Queries"])
+nav = st.sidebar.radio("Select Query Section", ["Queries by GUVI", "My Queries"])
 
 # Query selection based on navigation
 if nav == "Queries by GUVI":
@@ -114,5 +133,6 @@ if query:
     result_df = run_query(selected_query_set[query])
     if result_df is not None:
         st.dataframe(result_df)
+
 
 st.text("Thank you for using the dashboard!")
